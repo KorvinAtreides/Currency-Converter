@@ -6,6 +6,7 @@ const FORM_INPUT_STYLE = 'form--input';
 const FORM_INPUT_PLACEHOLDER_TEXT = 'Enter Amount';
 const FORM_CURRENCY_OPTIONS_STYLE = 'form--currency-options';
 const CURRENCIES_LIST = ['RUS', 'BYN', 'USD', 'EUR'];
+const MAX_DIGITS = 8;
 
 function createSelect() {
   const select = document.createElement('select');
@@ -17,6 +18,13 @@ function createSelect() {
   });
   return select;
 }
+
+function validateInput(input: HTMLInputElement) {
+  if(Number(input.value) >= Number(input.max)) input.value = input.max;
+  if(Number(input.value) <= 0) input.value = '0';
+  input.value = String(Number(input.value));
+}
+
 
 export default function createForm() {
   const form = document.createElement('form');
@@ -30,6 +38,12 @@ export default function createForm() {
   const sourceInput = document.createElement('input');
   sourceInput.classList.add(FORM_INPUT_STYLE);
   sourceInput.placeholder = FORM_INPUT_PLACEHOLDER_TEXT;
+  sourceInput.type = 'number';
+  sourceInput.min = '0';
+  sourceInput.max = String(Math.floor(10 ** MAX_DIGITS - 1));
+  sourceInput.addEventListener('input', () => {
+    validateInput(sourceInput);
+  });
   const sourceCurrency = createSelect();
   sourceWrapper.append(sourceInput, sourceCurrency);
 
@@ -40,7 +54,7 @@ export default function createForm() {
   targetInput.readOnly = true;
   const targetCurrency = createSelect();
   targetWrapper.append(targetInput, targetCurrency);
-  
+
   form.append(title, sourceWrapper, targetWrapper);
   return form;
 }
