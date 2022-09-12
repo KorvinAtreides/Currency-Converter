@@ -1,1 +1,7 @@
 @import './spinner.css';
+@import './form.css';
+
+body {
+  display: flex;
+  justify-content: center;
+}
