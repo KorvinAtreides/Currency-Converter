@@ -30,6 +30,47 @@ export default class Form {
     this.HTMLForm.classList.add(FORM_STYLE);
   }
 
+  switchLocale() {
+    const lng = (navigator.languages && navigator.languages[0]) || navigator.language;
+    switch (lng) {
+      case 'be':
+      case 'be-BY':
+        this.selectSourceCurrency.value = 'BYN';
+        break;
+      case 'ru':
+      case 'ru-BY':
+      case 'ru-KG ':
+      case 'ru-KZ':
+      case 'ru-MD ':
+      case 'ru-RU':
+        this.selectSourceCurrency.value = 'RUB';
+        break;
+      case 'en-GB':
+        this.selectSourceCurrency.value = 'GBP';
+        break;
+      case 'br-FR':
+      case 'ca-ES':
+      case 'cs-CZ':
+      case 'da-DK':
+      case 'de':
+      case 'de-DE':
+      case 'el-GR':
+      case 'en-150':
+      case 'es-ES':
+      case 'fi-FI':
+      case 'fr-BE':
+      case 'fr-CH':
+      case 'fr-FR':
+      case 'hu-HU':
+      case 'it-IT':
+        this.selectSourceCurrency.value = 'EUR';
+        break;
+      default:
+        this.selectSourceCurrency.value = 'USD';
+        break;
+    }
+  }
+
   createFormComponents() {
     const title = document.createElement('h3');
     title.classList.add(FORM_TITLE_STYLE);
@@ -58,6 +99,8 @@ export default class Form {
     this.selectTargetCurrency = Form.createSelect();
     targetWrapper.append(this.targetInput, this.selectTargetCurrency);
 
+    this.switchLocale();
+    this.selectTargetCurrency.value = this.selectSourceCurrency.value === 'USD' ? 'EUR' : 'USD';
     this.HTMLForm.append(title, sourceWrapper, targetWrapper);
   }
 
