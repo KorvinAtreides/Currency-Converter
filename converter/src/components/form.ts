@@ -5,7 +5,7 @@ const FORM_CONTENT_WRAPPER_STYLE = 'form--content-wrapper';
 const FORM_INPUT_STYLE = 'form--input';
 const FORM_INPUT_PLACEHOLDER_TEXT = 'Enter Amount';
 const FORM_CURRENCY_OPTIONS_STYLE = 'form--currency-options';
-const CURRENCIES_LIST = ['RUS', 'BYN', 'USD', 'EUR'];
+const CURRENCIES_LIST = ['RUB', 'BYN', 'USD', 'EUR'];
 const MAX_DIGITS = 8;
 
 function validateInput(input: HTMLInputElement) {

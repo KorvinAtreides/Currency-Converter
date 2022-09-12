@@ -1,14 +1,29 @@
-async function currencyRequest() {
-  const corsUrl = 'https://cors-ignorer.herokuapp.com';
-  const baseUrl = 'https://belapb.by/CashConvRatesDaily.php';
-  const date = getDate();
-  const response = await fetch(`${corsUrl}/${baseUrl}?ondate=${date}`);
-  return response.json();
+import { ResponseRecord } from "../interfaces";
+
+const CURRENCIES_LIST = ['RUB', 'BYN', 'USD', 'EUR'];
+const BASE_URL = 'https://api.exchangerate.host/convert';
+
+function createPromiseArray() {
+  const promiseArray: Array<Promise<ResponseRecord>> = [];
+  for (let i = 0; i < CURRENCIES_LIST.length; i++) {
+    for (let j = i + 1; j < CURRENCIES_LIST.length; j++) {
+      const promise: Promise<ResponseRecord> = new Promise((res) => {
+        let result;
+        const requestURL = `${BASE_URL}?from=${CURRENCIES_LIST[i]}&to=${CURRENCIES_LIST[j]}`;
+        var request = new XMLHttpRequest();
+        request.open('GET', requestURL);
+        request.responseType = 'json';
+        request.send();
+        request.onload = function() {
+          var response: ResponseRecord = request.response;
+          result = response;
+          res(result);
+        }
+      });
+      promiseArray.push(promise);
+    }
+  }
+  return promiseArray;
 }
 
-function getDate() {
-  const today = new Date();
-  return `${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear()}`;
-}
-
-export default currencyRequest;
+export default createPromiseArray;

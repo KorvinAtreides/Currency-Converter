@@ -1,5 +1,5 @@
-import currencyRequest from './api/currency-request';
-import convertFromXmlToArray from './api/handle-response';
+import createPromiseArray from './api/currency-request';
+import handleResponse from './api/handle-response';
 import Form from './components/form';
 import createSpinner from './components/spinner';
 import { ConvertRecord } from './interfaces';
@@ -10,17 +10,23 @@ export default class Main {
 
   form: Form;
 
-  async startApp() {
+  startApp() {
     const spinner = createSpinner();
     document.body.append(spinner);
     this.form = new Form();
     this.form.createFormComponents();
-    const currencyPromise = currencyRequest();
-    currencyPromise.then((response) => {
+    Promise.all(createPromiseArray()).then((response) => {
       spinner.remove();
-      this.currencyData = convertFromXmlToArray(response.data);
+      console.log(response);
+      console.log(handleResponse(response));
       document.body.append(this.form.HTMLForm);
       console.log(this.currencyData);
-    })
+      this.form.HTMLForm.addEventListener('change', this.recalculationTargetValue);
+      this.form.sourceInput.addEventListener('input', this.recalculationTargetValue);
+    });
+  }
+
+  recalculationTargetValue() {
+    console.log('recalc')
   }
 }
