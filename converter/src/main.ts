@@ -1,20 +1,14 @@
 import currencyRequest from './api/currency-request';
 import convertFromXmlToArray from './api/handle-response';
+import createSpinner from './components/spinner';
 import { ConvertRecord } from './interfaces';
 
 export default class Main {
 
   currencyData: Array<ConvertRecord>;
 
-  createSpinner() {
-    const spinner = document.createElement('img');
-    spinner.src = './img/spinner.png';
-    spinner.classList.add('spinIcon');
-    return spinner;
-  }
-
   async startApp() {
-    const spinner = this.createSpinner();
+    const spinner = createSpinner();
     document.body.append(spinner);
 
     const currencyPromise = currencyRequest();
