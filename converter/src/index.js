@@ -1,10 +1,4 @@
-import currencyRequest from "./api/currency-request";
+import Main from "./main"
 
-console.log('working');
-
-async function test() {
-  const my = await currencyRequest();
-  console.log(my.data)
-}
-
-test()
+const project = new Main();
+project.startApp();
