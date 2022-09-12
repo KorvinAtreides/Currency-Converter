@@ -23,6 +23,8 @@ export default class Form {
 
   selectTargetCurrency: HTMLSelectElement;
 
+  targetInput: HTMLInputElement;
+
   constructor() {
     this.HTMLForm = document.createElement('form');
     this.HTMLForm.classList.add(FORM_STYLE);
@@ -49,12 +51,12 @@ export default class Form {
 
     const targetWrapper = document.createElement('div');
     targetWrapper.classList.add(FORM_CONTENT_WRAPPER_STYLE);
-    const targetInput = document.createElement('input');
-    targetInput.classList.add(FORM_INPUT_STYLE);
-    targetInput.readOnly = true;
-    targetInput.style.cursor = 'not-allowed';
+    this.targetInput = document.createElement('input');
+    this.targetInput.classList.add(FORM_INPUT_STYLE);
+    this.targetInput.readOnly = true;
+    this.targetInput.style.cursor = 'not-allowed';
     this.selectTargetCurrency = Form.createSelect();
-    targetWrapper.append(targetInput, this.selectTargetCurrency);
+    targetWrapper.append(this.targetInput, this.selectTargetCurrency);
 
     this.HTMLForm.append(title, sourceWrapper, targetWrapper);
   }
