@@ -1,6 +1,5 @@
+import { NUMBER_OF_SIGNIFICANT_DIGITS } from "../constants";
 import { ConvertRecord, ResponseRecord } from "../interfaces";
-
-const NUMBER_OF_SIGNIFICANT_DIGITS = 6;
 
 function handleResponse(currencyData: Array<ResponseRecord>) {
   const currencyDataArray:  Array<ConvertRecord>= [];

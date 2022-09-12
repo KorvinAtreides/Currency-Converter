@@ -2,9 +2,8 @@ import createPromiseArray from './api/currency-request';
 import handleResponse from './api/handle-response';
 import Form from './components/form';
 import createSpinner from './components/spinner';
+import { NUMBER_OF_SIGNIFICANT_DIGITS } from './constants';
 import { ConvertRecord } from './interfaces';
-
-const NUMBER_OF_SIGNIFICANT_DIGITS = 6;
 
 export default class Main {
 
