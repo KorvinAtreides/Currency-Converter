@@ -1,6 +1,6 @@
 import { ResponseRecord } from "../interfaces";
 
-const CURRENCIES_LIST = ['RUB', 'BYN', 'USD', 'EUR'];
+const CURRENCIES_LIST = ['RUB', 'BYN', 'USD', 'EUR', 'GBP'];
 const BASE_URL = 'https://api.exchangerate.host/convert';
 
 function createPromiseArray() {
